@@ -48,3 +48,17 @@ Stores user details (name, age, sex, phone) in PostgreSQL or MySQL.
 ## Customize
 - Frontend styles in `frontend/src/styles.css` and Tailwind config.
 - Backend models in `backend/models.py`.
+
+
+```
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    sex ENUM('male', 'female', 'other') NOT NULL,
+    phone VARCHAR(15) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+```
