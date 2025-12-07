@@ -5,7 +5,7 @@ metadata:
   name: backend
   namespace: default
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -19,4 +19,5 @@ spec:
         image: balaji36490/simplewebapplication:backend   # Replace with your actual image
         ports:
         - containerPort: 5173
+
 
