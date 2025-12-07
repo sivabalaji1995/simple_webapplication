@@ -1,28 +1,3 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: mysqldb
-  namespace: default
-  labels:
-    app: mysqldb
-spec: 
-  replicas: 1
-  selector:
-    matchLabels:
-      app: mysqldb
-  template:
-    metadata:
-      labels:
-        app: mysqldb
-    spec:
-      containers:
-        - name: mysqldb
-          image: balaji36490/simplewebapplication:mysqldb
-          ports:
-          - containerPort: 3306
-
---------------
-
 
 apiVersion: apps/v1
 kind: Deployment
@@ -74,3 +49,4 @@ spec:
       - name: mysqldb-data
         persistentVolumeClaim:
           claimName: mysqldb-pvc
+
