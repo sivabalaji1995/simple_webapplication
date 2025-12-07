@@ -10,8 +10,9 @@ spec:
     app: frontend
   ports:
     - protocol: TCP
-      port: 5137
-      targetPort: 5137
+      port: 5173
+      targetPort: 5173
   type: ClusterIP
 
     
+
