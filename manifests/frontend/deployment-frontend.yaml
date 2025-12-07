@@ -5,7 +5,7 @@ metadata:
   name: frontend
   namespace: default
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -19,5 +19,6 @@ spec:
         image: balaji36490/simplewebapplication:frontend   # Replace with your actual image
         ports:
         - containerPort: 5173
+
 
 
