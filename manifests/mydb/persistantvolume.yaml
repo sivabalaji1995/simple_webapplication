@@ -1,0 +1,13 @@
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysqldb-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce           # MySQL typically needs RWO (single node writer)
+  resources:
+    requests:
+      storage: 4Gi           # adjust as needed
+  
