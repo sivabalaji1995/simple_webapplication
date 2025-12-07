@@ -8,15 +8,16 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: my-app
+      app: frontend
   template:
     metadata:
       labels:
-        app: my-app
+        app: frontend
     spec:
       containers:
-      - name: backend
+      - name: frontend
         image: balaji36490/simplewebapplication:frontend   # Replace with your actual image
         ports:
         - containerPort: 5173
+
 
