@@ -1,16 +1,17 @@
-apiVersion: app/v1
-kind: service
+apiVersion: v1
+kind: Service
 metadata:
   name: frontend-service
   namespace: default
-  lables:
+  labels:
     app: frontend
 spec:
   selector:
     app: frontend
   ports:
-    - protcol: TCP
+    - protocol: TCP
       port: 5137
       targetPort: 5137
   type: ClusterIP
+
     
