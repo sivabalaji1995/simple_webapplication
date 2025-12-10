@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: my-app
+        app: backend
     spec:
       containers:
       - name: backend
@@ -26,3 +26,4 @@ spec:
               name: backend-config
               key: DATABASE_URL
       
+
