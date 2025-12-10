@@ -5,19 +5,24 @@ metadata:
   name: backend
   namespace: default
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: backend
   template:
     metadata:
       labels:
-        app: backend
+        app: my-app
     spec:
       containers:
       - name: backend
         image: balaji36490/simplewebapplication:backend   # Replace with your actual image
         ports:
         - containerPort: 5173
-
-
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DATABASE_URL
+      
