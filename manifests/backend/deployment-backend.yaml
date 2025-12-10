@@ -5,7 +5,7 @@ metadata:
   name: backend
   namespace: default
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -26,4 +26,5 @@ spec:
               name: backend-config
               key: DATABASE_URL
       
+
 
