@@ -1,0 +1,21 @@
+
+# debug-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: net-debug
+  namespace: default
+  labels:
+    app: net-debug
+spec:
+  containers:
+    - name: net-debug
+      image: alpine:3.20
+      command: ["/bin/sh", "-c"]
+      args:
+        - >
+          apk add --no-cache curl bind-tools netcat-openbsd mysql-client &&
+          sleep infinity
+      stdin: true
+      tty: true
+

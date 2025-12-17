@@ -13,7 +13,7 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     # Allow local dev frontend
-    CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5173"]}})
+    CORS(app, resources={r"/api/*": {"origins": ["http://4.157.201.62:5173"]}})
     print("Database URL:", app.config["SQLALCHEMY_DATABASE_URI"])
     # with app.app_context():
     #     result = db.engine.execute("SELECT DATABASE();")

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: balaji36490/simplewebapplication:backend   # Replace with your actual image
+        image: balaji36490/simplewebapplication:backendlatest   # Replace with your actual image
         ports:
         - containerPort: 5173
         env:
