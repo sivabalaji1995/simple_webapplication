@@ -1,0 +1,21 @@
+
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: azure-kv-secrets
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"        # legacy AAD Pod Identity off
+    useVMManagedIdentity: "false"  # do not use node/cluster identity
+    clientID: "1d20f7f1-6e02-4da7-b147-893b774b26da"   # matches the ServiceAccount annotation
+    keyvaultName: "COE-AKS-KV"
+    tenantId: "d01bddfc-dfec-4fe0-b513-d03d4fe53f40"
+    objects: |
+      array:
+        - |
+          objectName: my-secret
+          objectType: secret
+          objectVersion: ""        # latest
+
