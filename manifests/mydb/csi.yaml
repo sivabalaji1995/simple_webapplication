@@ -1,45 +1,62 @@
-
-apiVersion: secrets-store.csi.x-k8s.io/v1
-kind: SecretProviderClass
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: mysqldb-secrets
+  name: mysqldb
   namespace: default
+  labels:
+    app: mysqldb
 spec:
-  provider: azure
-  parameters:
-    usePodIdentity: "false"        # legacy AAD Pod Identity off
-    useVMManagedIdentity: "false"  # do not use node/cluster identity
-    clientID: "1d20f7f1-6e02-4da7-b147-893b774b26da"   # matches the ServiceAccount annotation
-    keyvaultName: "COE-AKS-KV"
-    tenantId: "d01bddfc-dfec-4fe0-b513-d03d4fe53f40"
-    objects: |
-      array:
-        - |
-          objectName: MYSQL_ROOT_PASSWORD
-          objectType: secret
-          objectVersion: ""        # latest
-        - | 
-          objectName: MYSQL_DATABASE
-          objectType: secret
-          objectVersion: ""        # latest
-        - |
-          objectName: MYSQL_USER
-          objectType: secret
-          objectVersion: ""        # latest
-        - |
-          objectName: MYSQL_PASSWORD
-          objectType: secret
-          objectVersion: ""        # latest
-secretObjects:    
-  - secretName: mysqldb-secret
-    type: Opaque
-    data:
-      - objectName: MYSQL_ROOT_PASSWORD
-        key: MYSQL_ROOT_PASSWORD
-      - objectName: MYSQL_DATABASE
-        key: MYSQL_DATABASE
-      - objectName: MYSQL_USER
-        key: MYSQL_USER
-      - objectName: MYSQL_PASSWORD
-        key: MYSQL_PASSWORD
-       
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysqldb
+  template:
+    metadata:
+      labels:
+        app: mysqldb
+    spec:
+      containers:
+      - name: mysqldb
+        image: balaji36490/simplewebapplication:mysqldb
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysqldb-secret
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mysqldb-secret
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysqldb-secret
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysqldb-secret
+              key: MYSQL_PASSWORD
+        volumeMounts:
+        - name: mysqldb-data
+          mountPath: /var/lib/mysql         # MySQL data directory
+        - name: kv-secrets
+          mountPath: /mnt/secrets-store
+          readOnly: true
+      volumes:
+      - name: mysqldb-data
+        persistentVolumeClaim:
+          claimName: mysqldb-pvc
+
+      - name: kv-secrets
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "mysqldb-secrets"
+
+
