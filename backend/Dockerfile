@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir --progress-bar=off gunicorn
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 5001
 
-CMD ["gunicorn", "app:create_app()", "--bind", "0.0.0.0:5000", "--workers", "4"]
+CMD ["gunicorn", "app:create_app()", "--bind", "0.0.0.0:5001", "--workers", "4"]
 
