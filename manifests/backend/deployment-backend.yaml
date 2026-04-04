@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: backend
-        image: balaji36490/simplewebapplication:backendlatest   # Replace with your actual image
+        image: simplewebapplication-backend:latest   # Replace with your actual image
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5173
         env:

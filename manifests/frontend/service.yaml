@@ -12,7 +12,8 @@ spec:
     - protocol: TCP
       port: 5173
       targetPort: 5173
-  type: LoadBalancer
+      # nodePort: 30001
+  type: ClusterIP
 
     
 
