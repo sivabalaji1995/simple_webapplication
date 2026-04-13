@@ -1,0 +1,41 @@
+global:
+  resolve_timeout: 5m
+inhibit_rules:
+- equal:
+  - namespace
+  - alertname
+  source_matchers:
+  - severity = critical
+  target_matchers:
+  - severity =~ warning|info
+- equal:
+  - namespace
+  - alertname
+  source_matchers:
+  - severity = warning
+  target_matchers:
+  - severity = info
+- equal:
+  - namespace
+  source_matchers:
+  - alertname = InfoInhibitor
+  target_matchers:
+  - severity = info
+- target_matchers:
+  - alertname = InfoInhibitor
+receivers:
+- name: "slack-alerts"       # ✅ replaced "null"
+  slack_configs:
+  - api_url: "https://hooks.slack.com/services/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"
+    channel: "#alerts"
+    send_resolved: true
+route:
+  receiver: "slack-alerts"   # ✅ changed from "null"
+  group_by:
+    - namespace
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+
+templates:
+- /etc/alertmanager/config/*.tmpl
